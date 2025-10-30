@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Job Listings - Job Board Portal{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2>Job Listings</h2>
+                {% if user.is_authenticated and user.userprofile.user_type == 'employer' %}
+                    <a href="{% url 'jobs:job_create' %}" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Post New Job
+                    </a>
+                {% endif %}
+            </div>
+
+            <!-- Search Form -->
+            <div class="card mb-4">
+                <div class="card-body search-form">
+                    <form method="get" class="row g-3">
+                        <div class="col-md-5">
+                            {{ search_form.keyword }}
+                        </div>
+                        <div class="col-md-5">
+                            {{ search_form.location }}
+                        </div>
+                        <div class="col-md-2">
+                            <button type="submit" class="btn btn-outline-primary w-100">
+                                <i class="fas fa-search"></i> Search
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Job Listings -->
+            {% if jobs %}
+                <div class="row">
+                    {% for job in jobs %}
+                        <div class="col-md-6 mb-4">
+                            <div class="card h-100 job-card">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-start mb-2">
+                                        <h5 class="card-title">
+                                            <a href="{% url 'jobs:job_detail' job.pk %}" class="text-decoration-none">
+                                                {{ job.title }}
+                                            </a>
+                                        </h5>
+                                        {% if job.days_until_deadline <= 7 %}
+                                            <span class="badge bg-warning text-dark">
+                                                {{ job.days_until_deadline }} days left
+                                            </span>
+                                        {% endif %}
+                                    </div>
+                                    
+                                    <h6 class="card-subtitle mb-2 text-muted">
+                                        <i class="fas fa-building"></i> {{ job.company.name }}
+                                    </h6>
+                                    
+                                    <p class="card-text">
+                                        {{ job.description|truncatewords:20 }}
+                                    </p>
+                                    
+                                    <div class="row text-muted small mb-3">
+                                        <div class="col-sm-6">
+                                            <i class="fas fa-map-marker-alt"></i> {{ job.location }}
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <i class="fas fa-rupee-sign"></i> ₹{{ job.salary|floatformat:0 }}
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <small class="text-muted">
+                                            Posted {{ job.posted_date|timesince }} ago
+                                        </small>
+                                        <a href="{% url 'jobs:job_detail' job.pk %}" class="btn btn-outline-primary btn-sm">
+                                            View Details
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <!-- Pagination -->
+                {% if is_paginated %}
+                    <nav aria-label="Job listings pagination">
+                        <ul class="pagination justify-content-center">
+                            {% if page_obj.has_previous %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page=1{% if request.GET.keyword %}&keyword={{ request.GET.keyword }}{% endif %}{% if request.GET.location %}&location={{ request.GET.location }}{% endif %}">First</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if request.GET.keyword %}&keyword={{ request.GET.keyword }}{% endif %}{% if request.GET.location %}&location={{ request.GET.location }}{% endif %}">Previous</a>
+                                </li>
+                            {% endif %}
+
+                            <li class="page-item active">
+                                <span class="page-link">
+                                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                                </span>
+                            </li>
+
+                            {% if page_obj.has_next %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if request.GET.keyword %}&keyword={{ request.GET.keyword }}{% endif %}{% if request.GET.location %}&location={{ request.GET.location }}{% endif %}">Next</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}{% if request.GET.keyword %}&keyword={{ request.GET.keyword }}{% endif %}{% if request.GET.location %}&location={{ request.GET.location }}{% endif %}">Last</a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                {% endif %}
+            {% else %}
+                <div class="text-center py-5">
+                    <i class="fas fa-briefcase fa-3x text-muted mb-3"></i>
+                    <h4 class="text-muted">No jobs found</h4>
+                    <p class="text-muted">
+                        {% if request.GET.keyword or request.GET.location %}
+                            Try adjusting your search criteria.
+                        {% else %}
+                            No job listings are currently available.
+                        {% endif %}
+                    </p>
+                    {% if request.GET.keyword or request.GET.location %}
+                        <a href="{% url 'jobs:job_list' %}" class="btn btn-outline-primary">
+                            View All Jobs
+                        </a>
+                    {% endif %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

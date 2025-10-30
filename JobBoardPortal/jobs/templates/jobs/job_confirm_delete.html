@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Delete Job - Job Board Portal{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-danger text-white">
+                    <h3 class="mb-0">
+                        <i class="fas fa-exclamation-triangle"></i> Confirm Deletion
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-warning">
+                        <strong>Warning:</strong> This action cannot be undone.
+                    </div>
+                    
+                    <p>Are you sure you want to delete the following job posting?</p>
+                    
+                    <div class="card bg-light">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ object.title }}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">{{ object.company.name }}</h6>
+                            <p class="card-text">
+                                <strong>Location:</strong> {{ object.location }}<br>
+                                <strong>Salary:</strong> ₹{ object.salary|floatformat:0 }}<br>
+                                <strong>Posted:</strong> {{ object.posted_date|date:"M d, Y" }}<br>
+                                <strong>Deadline:</strong> {{ object.deadline }}
+                            </p>
+                        </div>
+                    </div>
+                    
+                    {% if object.applications.count > 0 %}
+                        <div class="alert alert-info mt-3">
+                            <i class="fas fa-info-circle"></i>
+                            <strong>Note:</strong> This job has {{ object.applications.count }} application{{ object.applications.count|pluralize }}.
+                            Deleting this job will also remove all associated applications.
+                        </div>
+                    {% endif %}
+
+                    <form method="post" class="mt-4">
+                        {% csrf_token %}
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a href="{% url 'jobs:job_detail' object.pk %}" class="btn btn-outline-secondary me-md-2">
+                                <i class="fas fa-times"></i> Cancel
+                            </a>
+                            <button type="submit" class="btn btn-danger">
+                                <i class="fas fa-trash"></i> Delete Job
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

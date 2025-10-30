@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Application Details - Job Board Portal{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <h3 class="mb-0">Application Details</h3>
+                        </div>
+                        <div class="col-md-4 text-md-end">
+                            {% if application.status == 'applied' %}
+                                <span class="badge bg-primary fs-6">Applied</span>
+                            {% elif application.status == 'under_review' %}
+                                <span class="badge bg-warning text-dark fs-6">Under Review</span>
+                            {% elif application.status == 'shortlisted' %}
+                                <span class="badge bg-success fs-6">Shortlisted</span>
+                            {% elif application.status == 'rejected' %}
+                                <span class="badge bg-danger fs-6">Rejected</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <!-- Job Information -->
+                    <div class="card bg-light mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ application.job.title }}</h5>
+                            <h6 class="card-subtitle mb-3 text-muted">{{ application.job.company.name }}</h6>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <strong>Location:</strong> {{ application.job.location }}
+                                </div>
+                                <div class="col-md-4">
+                                    <strong>Salary:</strong> ₹{{ application.job.salary|floatformat:0 }}
+                                </div>
+                                <div class="col-md-4">
+                                    <strong>Deadline:</strong> {{ application.job.deadline|date:"M d, Y" }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Applicant Information -->
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <h5>Applicant Information</h5>
+                            <table class="table table-borderless">
+                                <tr>
+                                    <td><strong>Name:</strong></td>
+                                    <td>{{ application.applicant.get_full_name|default:application.applicant.username }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Email:</strong></td>
+                                    <td>{{ application.applicant.email }}</td>
+                                </tr>
+                                {% if application.applicant.userprofile.phone %}
+                                <tr>
+                                    <td><strong>Phone:</strong></td>
+                                    <td>{{ application.applicant.userprofile.phone }}</td>
+                                </tr>
+                                {% endif %}
+                                {% if application.applicant.userprofile.location %}
+                                <tr>
+                                    <td><strong>Location:</strong></td>
+                                    <td>{{ application.applicant.userprofile.location }}</td>
+                                </tr>
+                                {% endif %}
+                            </table>
+                        </div>
+                        <div class="col-md-6">
+                            <h5>Application Details</h5>
+                            <table class="table table-borderless">
+                                <tr>
+                                    <td><strong>Applied Date:</strong></td>
+                                    <td>{{ application.applied_date|date:"M d, Y g:i A" }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Status:</strong></td>
+                                    <td>{{ application.get_status_display }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Resume:</strong></td>
+                                    <td>
+                                        {% if application.resume %}
+                                            <a href="{{ application.resume.url }}" target="_blank" class="btn btn-outline-primary btn-sm">
+                                                <i class="fas fa-file-pdf"></i> View Resume
+                                            </a>
+                                        {% else %}
+                                            <span class="text-muted">No resume uploaded</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Cover Letter -->
+                    {% if application.cover_letter %}
+                        <div class="mb-4">
+                            <h5>Cover Letter</h5>
+                            <div class="card">
+                                <div class="card-body">
+                                    <p class="card-text">{{ application.cover_letter|linebreaks }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    <!-- Action Buttons -->
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            {% if is_employer %}
+                                <a href="{% url 'jobs:employer_applications' %}" class="btn btn-outline-secondary">
+                                    <i class="fas fa-arrow-left"></i> Back to Applications
+                                </a>
+                            {% else %}
+                                <a href="{% url 'jobs:application_list' %}" class="btn btn-outline-secondary">
+                                    <i class="fas fa-arrow-left"></i> Back to My Applications
+                                </a>
+                            {% endif %}
+                        </div>
+                        <div>
+                            {% if is_employer %}
+                                <a href="{% url 'jobs:update_application_status' application.pk %}" class="btn btn-primary">
+                                    <i class="fas fa-edit"></i> Update Status
+                                </a>
+                            {% endif %}
+                            <a href="{% url 'jobs:job_detail' application.job.pk %}" class="btn btn-outline-primary">
+                                <i class="fas fa-eye"></i> View Job
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

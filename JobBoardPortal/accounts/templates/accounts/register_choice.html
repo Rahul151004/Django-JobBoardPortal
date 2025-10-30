@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block title %}Choose Registration Type - Job Board Portal{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white text-center">
+                <h3><i class="fas fa-user-plus me-2"></i>Join Job Board Portal</h3>
+                <p class="mb-0">Choose your account type to get started</p>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <!-- Employer Registration -->
+                    <div class="col-md-6 mb-4">
+                        <div class="card h-100 border-primary">
+                            <div class="card-body text-center">
+                                <div class="mb-3">
+                                    <i class="fas fa-building fa-4x text-primary"></i>
+                                </div>
+                                <h4 class="card-title text-primary">I'm an Employer</h4>
+                                <p class="card-text">
+                                    Post job openings, manage company profile, and find the best candidates for your organization.
+                                </p>
+                                <ul class="list-unstyled text-start">
+                                    <li><i class="fas fa-check text-success me-2"></i>Post unlimited job listings</li>
+                                    <li><i class="fas fa-check text-success me-2"></i>Manage company profile</li>
+                                    <li><i class="fas fa-check text-success me-2"></i>Review job applications</li>
+                                    <li><i class="fas fa-check text-success me-2"></i>Track application status</li>
+                                </ul>
+                            </div>
+                            <div class="card-footer">
+                                <a href="{% url 'accounts:employer_register' %}" class="btn btn-primary btn-lg w-100">
+                                    <i class="fas fa-arrow-right me-2"></i>Register as Employer
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Job Seeker Registration -->
+                    <div class="col-md-6 mb-4">
+                        <div class="card h-100 border-success">
+                            <div class="card-body text-center">
+                                <div class="mb-3">
+                                    <i class="fas fa-user-tie fa-4x text-success"></i>
+                                </div>
+                                <h4 class="card-title text-success">I'm a Job Seeker</h4>
+                                <p class="card-text">
+                                    Browse job opportunities, apply with your resume, and set up job alerts to find your dream job.
+                                </p>
+                                <ul class="list-unstyled text-start">
+                                    <li><i class="fas fa-check text-success me-2"></i>Browse job listings</li>
+                                    <li><i class="fas fa-check text-success me-2"></i>Apply with resume upload</li>
+                                    <li><i class="fas fa-check text-success me-2"></i>Track application status</li>
+                                    <li><i class="fas fa-check text-success me-2"></i>Set up job alerts</li>
+                                </ul>
+                            </div>
+                            <div class="card-footer">
+                                <a href="{% url 'accounts:jobseeker_register' %}" class="btn btn-success btn-lg w-100">
+                                    <i class="fas fa-arrow-right me-2"></i>Register as Job Seeker
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-4">
+                    <p class="text-muted">
+                        Already have an account? 
+                        <a href="{% url 'accounts:login' %}" class="text-decoration-none">
+                            <i class="fas fa-sign-in-alt me-1"></i>Login here
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

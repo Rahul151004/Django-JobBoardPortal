@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}My Applications - Job Board Portal{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="mb-4">My Job Applications</h2>
+
+            {% if applications %}
+                <div class="row">
+                    {% for application in applications %}
+                        <div class="col-md-12 mb-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-8">
+                                            <h5 class="card-title mb-1">
+                                                <a href="{% url 'jobs:job_detail' application.job.pk %}" class="text-decoration-none">
+                                                    {{ application.job.title }}
+                                                </a>
+                                            </h5>
+                                            <h6 class="card-subtitle mb-2 text-muted">
+                                                {{ application.job.company.name }}
+                                            </h6>
+                                            <div class="row text-muted small">
+                                                <div class="col-sm-6">
+                                                    <i class="fas fa-map-marker-alt"></i> {{ application.job.location }}
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <i class="fas fa-calendar"></i> Applied {{ application.applied_date|date:"M d, Y" }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 text-md-end">
+                                            <div class="mb-2">
+                                                {% if application.status == 'applied' %}
+                                                    <span class="badge bg-primary">Applied</span>
+                                                {% elif application.status == 'under_review' %}
+                                                    <span class="badge bg-warning text-dark">Under Review</span>
+                                                {% elif application.status == 'shortlisted' %}
+                                                    <span class="badge bg-success">Shortlisted</span>
+                                                {% elif application.status == 'rejected' %}
+                                                    <span class="badge bg-danger">Rejected</span>
+                                                {% endif %}
+                                            </div>
+                                            <div>
+                                                <a href="{% url 'jobs:job_detail' application.job.pk %}" class="btn btn-outline-primary btn-sm">
+                                                    View Job
+                                                </a>
+                                                {% if application.resume %}
+                                                    <a href="{{ application.resume.url }}" target="_blank" class="btn btn-outline-secondary btn-sm">
+                                                        <i class="fas fa-file-pdf"></i> Resume
+                                                    </a>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    {% if application.cover_letter %}
+                                        <hr>
+                                        <div class="mt-3">
+                                            <strong>Cover Letter:</strong>
+                                            <p class="mt-2">{{ application.cover_letter|truncatewords:50 }}</p>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <!-- Pagination -->
+                {% if is_paginated %}
+                    <nav aria-label="Applications pagination">
+                        <ul class="pagination justify-content-center">
+                            {% if page_obj.has_previous %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page=1">First</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                                </li>
+                            {% endif %}
+
+                            <li class="page-item active">
+                                <span class="page-link">
+                                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                                </span>
+                            </li>
+
+                            {% if page_obj.has_next %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                {% endif %}
+            {% else %}
+                <div class="text-center py-5">
+                    <i class="fas fa-file-alt fa-3x text-muted mb-3"></i>
+                    <h4 class="text-muted">No Applications Yet</h4>
+                    <p class="text-muted">You haven't applied for any jobs yet.</p>
+                    <a href="{% url 'jobs:job_list' %}" class="btn btn-primary">
+                        <i class="fas fa-search"></i> Browse Jobs
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

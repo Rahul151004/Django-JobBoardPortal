@@ -1,0 +1,122 @@
+{% extends "admin/index.html" %}
+{% load i18n static %}
+
+{% block content %}
+{{ block.super }}
+
+{% if user_type == 'employer' %}
+<div class="module">
+    <h2>Employer Dashboard</h2>
+    <div class="dashboard-stats">
+        {% if company %}
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <h3>{{ total_jobs }}</h3>
+                    <p>Total Jobs Posted</p>
+                </div>
+                <div class="stat-item">
+                    <h3>{{ active_jobs }}</h3>
+                    <p>Active Jobs</p>
+                </div>
+                <div class="stat-item">
+                    <h3>{{ total_applications }}</h3>
+                    <p>Total Applications</p>
+                </div>
+                <div class="stat-item">
+                    <h3>{{ pending_applications }}</h3>
+                    <p>Pending Applications</p>
+                </div>
+            </div>
+            
+            <div class="quick-actions">
+                <h3>Quick Actions</h3>
+                <ul>
+                    <li><a href="{% url 'admin:jobs_job_add' %}">Post New Job</a></li>
+                    <li><a href="{% url 'admin:jobs_job_changelist' %}">Manage Jobs</a></li>
+                    <li><a href="{% url 'admin:jobs_application_changelist' %}">View Applications</a></li>
+                    <li><a href="{% url 'admin:companies_company_change' company.pk %}">Update Company Profile</a></li>
+                </ul>
+            </div>
+        {% else %}
+            <div class="no-company-warning">
+                <h3>No Company Profile</h3>
+                <p>You need to create a company profile before you can post jobs.</p>
+                <a href="{% url 'admin:companies_company_add' %}" class="button">Create Company Profile</a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<style>
+.dashboard-stats {
+    margin: 20px 0;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.stat-item {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+    border: 1px solid #dee2e6;
+}
+
+.stat-item h3 {
+    font-size: 2em;
+    margin: 0 0 10px 0;
+    color: #417690;
+}
+
+.stat-item p {
+    margin: 0;
+    color: #666;
+}
+
+.quick-actions ul {
+    list-style: none;
+    padding: 0;
+}
+
+.quick-actions li {
+    margin: 10px 0;
+}
+
+.quick-actions a {
+    display: inline-block;
+    padding: 8px 15px;
+    background: #417690;
+    color: white;
+    text-decoration: none;
+    border-radius: 3px;
+}
+
+.quick-actions a:hover {
+    background: #205067;
+}
+
+.no-company-warning {
+    background: #fff3cd;
+    border: 1px solid #ffeaa7;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.no-company-warning .button {
+    display: inline-block;
+    padding: 10px 20px;
+    background: #28a745;
+    color: white;
+    text-decoration: none;
+    border-radius: 3px;
+    margin-top: 10px;
+}
+</style>
+{% endif %}
+{% endblock %}

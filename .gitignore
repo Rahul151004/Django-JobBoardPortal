@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Django
+*.log
+db.sqlite3
+db.sqlite3-journal
+JobBoardPortal/media/
+JobBoardPortal/logs/
+staticfiles/
+
+# Environment
+.env
+.venv
+env/
+venv/
+
+# IDE
+.vscode/
+.idea/
+.kiro/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp

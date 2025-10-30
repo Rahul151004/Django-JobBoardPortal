@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Update Application Status - Job Board Portal{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="mb-0">Update Application Status</h3>
+                </div>
+                <div class="card-body">
+                    <!-- Application Information -->
+                    <div class="card bg-light mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ application.applicant.get_full_name|default:application.applicant.username }}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Applied for: {{ application.job.title }}</h6>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <strong>Email:</strong> {{ application.applicant.email }}
+                                </div>
+                                <div class="col-md-6">
+                                    <strong>Applied Date:</strong> {{ application.applied_date|date:"M d, Y" }}
+                                </div>
+                            </div>
+                            <div class="mt-2">
+                                <strong>Current Status:</strong>
+                                {% if application.status == 'applied' %}
+                                    <span class="badge bg-primary">Applied</span>
+                                {% elif application.status == 'under_review' %}
+                                    <span class="badge bg-warning text-dark">Under Review</span>
+                                {% elif application.status == 'shortlisted' %}
+                                    <span class="badge bg-success">Shortlisted</span>
+                                {% elif application.status == 'rejected' %}
+                                    <span class="badge bg-danger">Rejected</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Status Update Form -->
+                    <form method="post" novalidate>
+                        {% csrf_token %}
+                        
+                        <div class="mb-4">
+                            <label for="{{ form.status.id_for_label }}" class="form-label">
+                                <strong>Update Status</strong>
+                            </label>
+                            {{ form.status }}
+                            {% if form.status.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ form.status.errors.0 }}
+                                </div>
+                            {% endif %}
+                            <div class="form-text">
+                                Select the new status for this application. The applicant will see this status in their application tracking.
+                            </div>
+                        </div>
+
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle"></i>
+                            <strong>Status Meanings:</strong>
+                            <ul class="mb-0 mt-2">
+                                <li><strong>Applied:</strong> Initial application received</li>
+                                <li><strong>Under Review:</strong> Application is being reviewed</li>
+                                <li><strong>Shortlisted:</strong> Candidate has been shortlisted for further consideration</li>
+                                <li><strong>Rejected:</strong> Application has been declined</li>
+                            </ul>
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a href="{% url 'jobs:application_detail' application.pk %}" class="btn btn-outline-secondary me-md-2">
+                                <i class="fas fa-arrow-left"></i> Back to Application
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> Update Status
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

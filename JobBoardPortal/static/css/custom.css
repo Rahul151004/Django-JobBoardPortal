@@ -1,0 +1,528 @@
+/* Job Board Portal Custom Styles */
+
+/* Profile Picture Styles */
+.profile-picture {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+}
+
+.profile-placeholder {
+    width: 120px;
+    height: 120px;
+}
+
+/* Company Logo Styles */
+.company-logo {
+    max-height: 100px;
+    max-width: 100%;
+    object-fit: contain;
+}
+
+/* Feature Icons */
+.feature-icon {
+    width: 60px;
+    height: 60px;
+}
+
+/* Job Card Enhancements */
+.job-card {
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.job-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Application Status Badges */
+.status-applied {
+    background-color: #0d6efd !important;
+}
+
+.status-under-review {
+    background-color: #ffc107 !important;
+    color: #000 !important;
+}
+
+.status-shortlisted {
+    background-color: #198754 !important;
+}
+
+.status-rejected {
+    background-color: #dc3545 !important;
+}
+
+/* Form Enhancements */
+.form-control:focus,
+.form-select:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+.form-control.is-invalid:focus {
+    border-color: #dc3545;
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+}
+
+.form-control.is-valid:focus {
+    border-color: #198754;
+    box-shadow: 0 0 0 0.2rem rgba(25, 135, 84, 0.25);
+}
+
+/* Enhanced form validation styles */
+.form-control.is-invalid {
+    border-color: #dc3545;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc3545'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath d='m5.8 3.6.4.4.4-.4M5.8 8.4l.4-.4.4.4m-.4-3.2v2.4'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right calc(0.375em + 0.1875rem) center;
+    background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+}
+
+.form-control.is-valid {
+    border-color: #198754;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23198754' d='m2.3 6.73.94-.94 1.44 1.44L7.4 4.5 6.46 3.56 4.24 5.78 2.3 6.73z'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right calc(0.375em + 0.1875rem) center;
+    background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+}
+
+/* Custom form styling */
+.form-floating > .form-control:focus ~ label,
+.form-floating > .form-control:not(:placeholder-shown) ~ label {
+    opacity: 0.65;
+    transform: scale(0.85) translateY(-0.5rem) translateX(0.15rem);
+}
+
+/* Required field indicator */
+.form-label .text-danger {
+    font-weight: bold;
+}
+
+.form-label.required::after {
+    content: " *";
+    color: #dc3545;
+    font-weight: bold;
+}
+
+/* Form validation feedback */
+.invalid-feedback {
+    display: block;
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: 0.875em;
+    color: #dc3545;
+    font-weight: 500;
+}
+
+.valid-feedback {
+    display: block;
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: 0.875em;
+    color: #198754;
+    font-weight: 500;
+}
+
+/* File upload enhancements */
+.file-info {
+    padding: 0.5rem;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 0.375rem;
+    margin-top: 0.5rem;
+}
+
+.file-info.text-danger {
+    background-color: #f8d7da;
+    border-color: #f5c2c7;
+}
+
+.file-info.text-success {
+    background-color: #d1e7dd;
+    border-color: #badbcc;
+}
+
+/* Form help text */
+.form-text {
+    margin-top: 0.25rem;
+    font-size: 0.875em;
+    color: #6c757d;
+}
+
+/* Form group spacing */
+.form-group {
+    margin-bottom: 1rem;
+}
+
+/* Validation summary */
+.validation-summary {
+    background-color: #f8d7da;
+    border: 1px solid #f5c2c7;
+    border-radius: 0.375rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.validation-summary h5 {
+    color: #721c24;
+    margin-bottom: 0.5rem;
+}
+
+.validation-summary ul {
+    margin-bottom: 0;
+    padding-left: 1.5rem;
+}
+
+.validation-summary li {
+    color: #721c24;
+}
+
+/* Loading overlay for forms */
+.form-loading {
+    position: relative;
+}
+
+.form-loading::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+/* Password strength indicator */
+.password-strength {
+    height: 4px;
+    background-color: #e9ecef;
+    border-radius: 2px;
+    margin-top: 0.25rem;
+    overflow: hidden;
+}
+
+.password-strength-bar {
+    height: 100%;
+    transition: width 0.3s ease, background-color 0.3s ease;
+    border-radius: 2px;
+}
+
+.password-strength-weak {
+    background-color: #dc3545;
+}
+
+.password-strength-medium {
+    background-color: #ffc107;
+}
+
+.password-strength-strong {
+    background-color: #198754;
+}
+
+/* Form step indicator */
+.form-steps {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+}
+
+.form-step {
+    flex: 1;
+    text-align: center;
+    position: relative;
+}
+
+.form-step::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: #dee2e6;
+    z-index: 1;
+}
+
+.form-step:first-child::before {
+    left: 50%;
+}
+
+.form-step:last-child::before {
+    right: 50%;
+}
+
+.form-step-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background-color: #dee2e6;
+    color: #6c757d;
+    font-weight: bold;
+    position: relative;
+    z-index: 2;
+}
+
+.form-step.active .form-step-number {
+    background-color: #0d6efd;
+    color: white;
+}
+
+.form-step.completed .form-step-number {
+    background-color: #198754;
+    color: white;
+}
+
+.form-step-label {
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 0.875em;
+    color: #6c757d;
+}
+
+.form-step.active .form-step-label {
+    color: #0d6efd;
+    font-weight: 500;
+}
+
+.form-step.completed .form-step-label {
+    color: #198754;
+}
+
+.btn-primary {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+.btn-primary:hover {
+    background-color: #0b5ed7;
+    border-color: #0a58ca;
+}
+
+/* Navigation Enhancements */
+.navbar-brand {
+    font-weight: 600;
+}
+
+.nav-link {
+    font-weight: 500;
+}
+
+/* Card Enhancements */
+.card {
+    border: none;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    border-bottom: none;
+    font-weight: 600;
+}
+
+/* Footer Styles */
+footer {
+    margin-top: auto;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .profile-picture,
+    .profile-placeholder {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .feature-icon {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .display-4 {
+        font-size: 2rem;
+    }
+    
+    /* Mobile navigation improvements */
+    .navbar-nav .nav-link {
+        padding: 0.75rem 1rem;
+    }
+    
+    .dropdown-menu {
+        border: none;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Mobile form improvements */
+    .btn-group {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .btn-group .btn {
+        margin-bottom: 0.5rem;
+        border-radius: 6px !important;
+    }
+    
+    /* Mobile card improvements */
+    .card-body {
+        padding: 1rem;
+    }
+    
+    /* Mobile table improvements */
+    .table-responsive {
+        border: none;
+    }
+    
+    /* Mobile search form */
+    .search-form .row > div {
+        margin-bottom: 1rem;
+    }
+    
+    /* Mobile job cards */
+    .job-card {
+        margin-bottom: 1rem;
+    }
+    
+    /* Mobile statistics */
+    .row.text-center > div {
+        margin-bottom: 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    /* Extra small devices */
+    .container {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    
+    .card {
+        margin-bottom: 1rem;
+    }
+    
+    .btn-lg {
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+    }
+    
+    .display-1 {
+        font-size: 3rem;
+    }
+    
+    .display-4 {
+        font-size: 1.75rem;
+    }
+    
+    /* Mobile navigation brand */
+    .navbar-brand {
+        font-size: 1.1rem;
+    }
+    
+    /* Mobile form controls */
+    .form-control,
+    .form-select {
+        font-size: 16px; /* Prevents zoom on iOS */
+    }
+    
+    /* Mobile buttons */
+    .d-grid .btn {
+        padding: 0.75rem;
+    }
+}
+
+/* Animation for loading states */
+.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+/* Alert Enhancements */
+.alert {
+    border: none;
+    border-radius: 8px;
+}
+
+/* Badge Enhancements */
+.badge {
+    font-weight: 500;
+}
+
+/* Button Enhancements */
+.btn {
+    border-radius: 6px;
+    font-weight: 500;
+}
+
+.btn-lg {
+    padding: 0.75rem 1.5rem;
+}
+
+/* Table Enhancements */
+.table {
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* Pagination Enhancements */
+.pagination .page-link {
+    border-radius: 6px;
+    margin: 0 2px;
+    border: 1px solid #dee2e6;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+/* Search Form Enhancements */
+.search-form {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 10px;
+    padding: 1.5rem;
+}
+
+/* Job Deadline Warning */
+.deadline-warning {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.7;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Accessibility Improvements */
+.btn:focus,
+.form-control:focus,
+.form-select:focus {
+    outline: 2px solid #0d6efd;
+    outline-offset: 2px;
+}
+
+/* Print Styles */
+@media print {
+    .navbar,
+    .btn,
+    footer {
+        display: none !important;
+    }
+    
+    .card {
+        box-shadow: none !important;
+        border: 1px solid #dee2e6 !important;
+    }
+}
