@@ -231,10 +231,5 @@ GET /jobs/?keyword=data+scientist&location=remote&page=1
 3. Make your changes
 4. Submit a pull request
 
-## 📄 License
-
-MIT License - see LICENSE file for details.
-
----
 
 **Built with Django 4.2 + Bootstrap 5 + Python 3.13**
